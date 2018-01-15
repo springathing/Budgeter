@@ -1,0 +1,72 @@
+﻿@model mblyakher_budgeter.Models.BudgetItem
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="col-md-12">
+    <div class="widget">
+        <div class="widget-head">
+            <div class="pull-left">Delete Budget Item</div>
+            <div class="widget-icons pull-right">
+                <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+                <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="widget-content">
+            <div class="padd">
+                <div class="form quick-post">
+                    <h3>Are you sure you want to delete this?</h3>
+                    <div>
+                        <h4>BudgetItem</h4>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Budget.Name)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Budget.Name)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.BudgetItemType.Name)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.BudgetItemType.Name)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Amount)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Amount)
+                            </dd>
+
+                        </dl>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-actions no-color">
+                                <input type="submit" value="Delete" class="btn btn-default" /> |
+                                @Html.ActionLink("Back to List", "Index")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="widget-foot">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

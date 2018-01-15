@@ -1,0 +1,206 @@
+﻿@model mblyakher_budgeter.Models.HouseholdViewModel
+@using Microsoft.AspNet.Identity;
+
+<div class="col-md-12">
+        <div class="widget">
+            <div class="widget-head">
+                <div class="pull-left">Household Details</div>
+                <div class="widget-icons pull-right">
+                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="widget-content">
+                <div class="padd">
+                    <div class="form quick-post">
+                        <div class="lower-nav">
+                            @{
+                                var userId = User.Identity.GetUserId();
+                              
+                                  
+                                        @Html.ActionLink("Invite", "Create", "Invites", new { id = Model.household.Id }, null)<span> |</span>
+                                        
+                                        @Html.ActionLink("Edit", "Edit", new { id = Model.household.Id })<span> |</span>
+                                   
+                             
+                                        @Html.ActionLink("Delete Household", "Delete", "Households", new { id = Model.household.Id }, null)<span> |</span>
+                                        @Html.ActionLink("Leave Household", "Leave", "Households", new { id = Model.household.Id }, null)<span> |</span>
+                 
+
+                            }
+                            @Html.ActionLink("My Other Households", "Index", "Households")
+                        </div>
+
+                        <h2 class="text-center">- @Model.household.Name -</h2>
+
+                        <br />
+
+                        <div class="row">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Accounts
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <a href="@Html.ActionLink("Create", "Accounts", new { HouseholdId = Model.household.Id })" class="btn btn-default btn-block"> Add New Account</a>
+                                        <table class="table table-striped table-bordered table-hover" id="dataTables-transactions">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Name
+                                                    </th>
+                                                    <th>
+                                                        Balance
+                                                    </th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    @foreach (var account in Model.household.Accounts.OrderBy(b => b.Name))
+                                                    {
+                                                            <tr>
+                                                                <td>
+                                                                    @Html.DisplayFor(item => account.Name)
+                                                                </td>
+                                                                <td>
+                                                                    @Html.DisplayFor(item => account.Balance)
+                                                                </td>
+                                                            </tr>
+
+                                                         
+                                                                @Html.ActionLink("Edit Account", "Edit", "BankAccounts", new { householdId = Model.household.Id }, null)
+                                                                @Html.ActionLink("View Transactions", "Index", "Transactions", new { accountId = account.Id }, null)
+                                                    }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*<div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Transactions
+                                </div>
+                                <div class="panel-body">
+                                    <a href="@Url.Action("Create", "Transactions", new { householdId = Model.household.Id })" class="btn btn-default btn-block"><i class="fa fa-shopping-cart"></i> Add Transaction</a>
+                                    <br />
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover" id="dataTables-transactions">
+                                            <thead>
+                                                <tr>
+                                                    <th>Account</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                    <th>Description</th>
+                                                    <th>Made By</th>
+                                                    <th>Transaction Type</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.household.Accounts)
+                                                {
+                                                    foreach (var transaction in item.Transactions.OrderByDescending(t => t.CreatedDate))
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => transaction.Account.Name)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => transaction.Amount)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => transaction.CreatedDate)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => transaction.Description)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => transaction.MadeBy.FullName)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => transaction.TransactionType.Name)
+                                                            </td>
+                                                            <td>
+                                                                @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Transactions", routeValues: new { householdId = Model.household.Id, transactionId = transaction.Id }, htmlAttributes: "") |
+                                                                @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Transactions", routeValues: new { householdId = Model.household.Id, transactionId = transaction.Id }, htmlAttributes: "")
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>*@
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Household Budget(s)
+                                </div>
+                                <div class="panel-body">
+                                    <a href="@Url.Action("Create", "Budgets", new { householdId = Model.household.Id })" class="btn btn-default btn-block"> Add Budget</a>
+                                    <br />
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover" id="dataTables-transactions">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Amount</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.household.Budgets)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Name)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Amount)
+                                                        </td>
+                                                        <td>
+                                                            @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Budgets", routeValues: new { householdId = Model.household.Id, budgetId = item.Id }, htmlAttributes: "") |
+                                                            @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Budgets", routeValues: new { householdId = Model.household.Id, budgetId = item.Id }, htmlAttributes: "")
+                                                        </td>
+                                                    </tr>
+                                                    foreach (var budgetitem in item.BudgetItems.OrderBy(b => b.Amount))
+                                                    {
+                                                        <tr>
+                                                            <td>
+                                                                Budget Item
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => budgetitem.BudgetItemType.Name)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => budgetitem.Amount)
+                                                            </td>
+                                                            <td>
+                                                                @Html.ActionLink(linkText: "Edit", actionName: "Edit", controllerName: "Transactions", routeValues: new { householdId = Model.household.Id, transactionId = budgetitem.Id }, htmlAttributes: "") |
+                                                                @Html.ActionLink(linkText: "Details", actionName: "Details", controllerName: "Transactions", routeValues: new { householdId = Model.household.Id, transactionId = budgetitem.Id }, htmlAttributes: "")
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-foot">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+

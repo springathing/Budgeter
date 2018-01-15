@@ -1,0 +1,101 @@
+﻿@model IEnumerable<mblyakher_budgeter.Models.Household>
+@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = "My Households";
+    string userId = User.Identity.GetUserId();
+    bool flag = false;
+}
+
+<div class="col-md-12">
+    <div class="widget">
+        <div class="widget-head">
+            <div class="pull-left">My Household(s)</div>
+            <div class="widget-icons pull-right">
+                <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+                <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="widget-content">
+            <div class="padd">
+                <div class="form quick-post">
+                    <p>
+                        @Html.ActionLink("Create A New Household", "Create")
+                    </p>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            foreach (var user in item.Users)
+                            {
+                                if (user.Id == userId)
+                                {
+                                    flag = true;
+                                }
+                                if (flag)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                                            @Html.ActionLink("Leave Household", "Leave", new { id = item.Id }) |
+                                            @Html.ActionLink("Invite Users", "Create", "Invites", new { id = item.Id }, null)
+                                        </td>
+                                    </tr>
+                                    flag = false;
+
+                                }
+                            }
+                        }
+
+                    </table>
+                </div>
+            </div>
+            <div class="widget-foot">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+@*<div class="col-md-12">
+    <div class="widget">
+        <div class="widget-head">
+            <div class="pull-left"></div>
+            <div class="widget-icons pull-right">
+                <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a>
+                <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="widget-content">
+            <div class="padd">
+                <div class="form quick-post">
+                    
+                </div>
+            </div>
+            <div class="widget-foot">
+
+            </div>
+        </div>
+
+    </div>
+</div>*@
